@@ -5,5 +5,7 @@ public:
         int ans = dividend/divisor;
         cout << ans;
         return ans;
+
+        
     }
 };
