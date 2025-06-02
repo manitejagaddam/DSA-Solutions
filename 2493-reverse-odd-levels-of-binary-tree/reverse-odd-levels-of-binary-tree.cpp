@@ -1,0 +1,61 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    // TreeNode* reverseOddLevels(TreeNode* root) {
+    //     DFS(root -> left, root -> right, 0);
+    //     return root;
+        
+    // }
+    TreeNode* reverseOddLevels(TreeNode* root) {
+        queue<TreeNode*> q;
+        q.push(root);
+        int level = 0;
+        while(!q.empty()){
+            int size = q.size();
+            vector<TreeNode*> currentLevel;
+
+            for (int i = 0 ; i < size ; i++){
+                auto node = q.front();
+                q.pop();
+                currentLevel.push_back(node);
+                if(node -> left) q.push(node -> left);
+                if(node -> right) q.push(node -> right);
+                }
+
+            if(level % 2 == 1){
+                int left = 0;
+                int right = currentLevel.size() - 1;
+                while(left < right){
+                    swap(currentLevel[left] -> val , currentLevel[right] -> val);
+                    left++;
+                    right--;
+                }
+            }
+            level++;
+        }
+
+        return root;
+    } 
+
+private : 
+    void DFS(TreeNode* left, TreeNode* right, int level){
+        if(left == nullptr || right == nullptr) return;
+
+        if(level % 2 == 0){
+            swap(left -> val, right -> val);
+        }
+
+        DFS(left -> left, right -> right , level + 1);
+        DFS(left -> right, right -> left , level + 1);
+    }
+};
