@@ -11,41 +11,42 @@
  */
 class Solution {
 public:
-    // TreeNode* reverseOddLevels(TreeNode* root) {
-    //     DFS(root -> left, root -> right, 0);
-    //     return root;
-        
-    // }
     TreeNode* reverseOddLevels(TreeNode* root) {
-        queue<TreeNode*> q;
-        q.push(root);
-        int level = 0;
-        while(!q.empty()){
-            int size = q.size();
-            vector<TreeNode*> currentLevel;
-
-            for (int i = 0 ; i < size ; i++){
-                auto node = q.front();
-                q.pop();
-                currentLevel.push_back(node);
-                if(node -> left) q.push(node -> left);
-                if(node -> right) q.push(node -> right);
-                }
-
-            if(level % 2 == 1){
-                int left = 0;
-                int right = currentLevel.size() - 1;
-                while(left < right){
-                    swap(currentLevel[left] -> val , currentLevel[right] -> val);
-                    left++;
-                    right--;
-                }
-            }
-            level++;
-        }
-
+        DFS(root -> left, root -> right, 0);
         return root;
-    } 
+    }
+
+    
+    // TreeNode* reverseOddLevels(TreeNode* root) {
+    //     queue<TreeNode*> q;
+    //     q.push(root);
+    //     int level = 0;
+    //     while(!q.empty()){
+    //         int size = q.size();
+    //         vector<TreeNode*> currentLevel;
+
+    //         for (int i = 0 ; i < size ; i++){
+    //             auto node = q.front();
+    //             q.pop();
+    //             currentLevel.push_back(node);
+    //             if(node -> left) q.push(node -> left);
+    //             if(node -> right) q.push(node -> right);
+    //             }
+
+    //         if(level % 2 == 1){
+    //             int left = 0;
+    //             int right = currentLevel.size() - 1;
+    //             while(left < right){
+    //                 swap(currentLevel[left] -> val , currentLevel[right] -> val);
+    //                 left++;
+    //                 right--;
+    //             }
+    //         }
+    //         level++;
+    //     }
+
+    //     return root;
+    // } 
 
 private : 
     void DFS(TreeNode* left, TreeNode* right, int level){
