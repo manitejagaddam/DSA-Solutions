@@ -59,6 +59,26 @@ private:
 
     }
 
+
+    int tabulation_space_optimized(vector<vector<int>> & grid){
+        int m = grid.size();
+        int n = grid[0].size();
+
+        vector<int> prev(n, INT_MAX);
+        prev[0] = 0;
+
+        for(int i = 0 ; i < m ; i++){
+            vector<int> curr(n);
+            for(int j = 0 ; j < n ; j++){
+                if(j == 0) curr[j] = grid[i][j] + prev[j];
+                else curr[j] = min(curr[j - 1], prev[j]) + grid[i][j];
+            }
+            prev = curr;
+        }
+
+        return prev[n - 1];
+    }
+
 public:
     int minPathSum(vector<vector<int>>& grid) {
         // // BReute Force Method Recurssion
@@ -67,6 +87,8 @@ public:
         // vector<vector<int>> dp(grid.size(), vector<int>(grid[0].size(), -1));
         // return memoization(grid, 0, 0, dp);
 
-        return tabulation(grid);
+        // return tabulation(grid);
+        
+        return tabulation_space_optimized(grid);
     }
 };
