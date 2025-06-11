@@ -22,9 +22,10 @@ public:
         string ans = "";
         for(int idx = n ; idx >= 0 ; idx--){
             for(char ch : bucket[idx]){
-                for(int i = 0 ; i < idx ; i++){
-                    ans += ch;
-                }
+                // for(int i = 0 ; i < idx ; i++){
+                //     ans += ch;
+                // }
+                ans += string(idx, ch);
             }
         }
 
