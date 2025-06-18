@@ -9,7 +9,7 @@ public:
         for(int ele : nums) mpp[ele]++;
 
         int no_pairs = 0;
-        for(auto it : mpp) cout << it.first << " -> " << it.second << endl;
+        // for(auto it : mpp) cout << it.first << " -> " << it.second << endl;
 
         for(auto it : mpp){
             if(k == 0 && it.second > 1) no_pairs++;
