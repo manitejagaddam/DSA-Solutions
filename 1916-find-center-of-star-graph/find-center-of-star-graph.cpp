@@ -17,20 +17,20 @@ public:
 
         // OPTIMAL according to the question
 
-        // int u1 = edges[0][0];
-        // int u2 = edges[1][0];
-        // int v1 = edges[0][1];
-        // int v2 = edges[1][1];
+        int u1 = edges[0][0];
+        int u2 = edges[1][0];
+        int v1 = edges[0][1];
+        int v2 = edges[1][1];
 
-        // if(u1 == u2 || u1 == v2) return u1;
-        // return u2;
+        if(u1 == u2 || u1 == v2) return u1;
+        return v1;
 
-        int a = edges[0][0], b = edges[0][1];
-        int c = edges[1][0], d = edges[1][1];
+        // int a = edges[0][0], b = edges[0][1];
+        // int c = edges[1][0], d = edges[1][1];
         
-        // The common node in both edges is the center
-        if (a == c || a == d) return a;
-        return b;
+        // // The common node in both edges is the center
+        // if (a == c || a == d) return a;
+        // return b;
 
     }
 };
