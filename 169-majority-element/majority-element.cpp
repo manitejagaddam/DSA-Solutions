@@ -17,37 +17,37 @@ public:
         
         // OPTIMAL APPROACH
 
-        // int element = nums[0];
-        // int count = 0;
-        // for(int i : nums){
-        //     if(count == 0){
-        //         element = i;
-        //     }
-        //     if(i == element){
-        //         count++;
-        //     }else{
-        //         count--;
-        //     }
-        // }
-        // return element;
-
-
-        vector<int> stack(nums.size(), 0);
-        int i=0;
-        for(int x:nums){
-            if(i == 0){
-                stack[i]=x;
-                i++;
+        int element = nums[0];
+        int count = 0;
+        for(int i : nums){
+            if(count == 0){
+                element = i;
             }
-            else if(stack[i-1] ==  x){
-                stack[i]=x;
-                i++;
-            }
-            else{
-                i--;
+            if(i == element){
+                count++;
+            }else{
+                count--;
             }
         }
-        return stack[i-1];
+        return element;
+
+
+        // vector<int> stack(nums.size(), 0);
+        // int i=0;
+        // for(int x:nums){
+        //     if(i == 0){
+        //         stack[i]=x;
+        //         i++;
+        //     }
+        //     else if(stack[i-1] ==  x){
+        //         stack[i]=x;
+        //         i++;
+        //     }
+        //     else{
+        //         i--;
+        //     }
+        // }
+        // return stack[i-1];
 
     }
 };
