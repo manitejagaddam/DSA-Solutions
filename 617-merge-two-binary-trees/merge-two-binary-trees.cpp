@@ -12,13 +12,6 @@
 class Solution {
 
 private:
-    // void merge(TreeNode * root1, TreeNode * root2, TreeNode * ans){
-    //     if(!root1 && !root2) return;
-    //     if(root1) ans -> val += root1 -> val;
-    //     if(root2) ans -> val += root2 -> val;
-    //     merge(root1 -> left, root2 -> left, ans -> left = new TreeNode(0));
-    //     merge(root1 -> right, root2 -> right, ans -> right = new TreeNode(0));
-    // }
 
     TreeNode * merge(TreeNode * root1, TreeNode * root2){
         if(!root1 && !root2) return nullptr;
@@ -39,10 +32,6 @@ private:
 
 public:
     TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) {
-        // TreeNode * ans = new TreeNode(0);
-        // merge(root1, root2, ans);
-        // return ans;
-
         return merge(root1, root2);
     }
 };
