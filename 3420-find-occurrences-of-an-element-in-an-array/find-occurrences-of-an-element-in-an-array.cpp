@@ -8,8 +8,9 @@ public:
         }
         vector<int> ans;
         int qLen = queries.size();
+        int indexesLen = indexes.size();
         for(int q_idx = 0 ; q_idx < qLen ; q_idx++){
-            if(queries[q_idx] > indexes.size()) ans.push_back(-1);
+            if(queries[q_idx] > indexesLen) ans.push_back(-1);
             else ans.push_back(indexes[queries[q_idx] - 1]);
         }
         return ans;
