@@ -12,21 +12,23 @@
 class Solution {
 
 private:
-    void dfs(TreeNode * root , int targetSum, int sum, vector<int> temp, vector<vector<int>> & ans){
+    void dfs(TreeNode * root , int targetSum, int sum, vector<int> & temp, vector<vector<int>> & ans){
         if(!root) return;
+
         sum += root -> val;
+        
         temp.push_back(root -> val);
+        
         cout << sum << " ";
+        
         if(!root -> left && !root -> right) {
             if(sum == targetSum) ans.push_back(temp);
-            return;
+            // return;
+        }else{
+            dfs(root -> left, targetSum, sum, temp, ans);
+            dfs(root -> right, targetSum, sum, temp, ans);
         }
-
-
-        dfs(root -> left, targetSum, sum, temp, ans);
-        // temp.pop_back();
-        dfs(root -> right, targetSum, sum, temp, ans);
-        // temp.pop_back();
+        temp.pop_back();
 
     }
 
