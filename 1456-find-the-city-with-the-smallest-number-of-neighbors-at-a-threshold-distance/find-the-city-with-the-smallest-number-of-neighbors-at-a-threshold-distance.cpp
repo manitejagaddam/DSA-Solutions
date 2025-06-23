@@ -35,7 +35,7 @@ public:
         }
         for(int dig_idx = 0 ; dig_idx < n ; dig_idx++) adjMat[dig_idx][dig_idx] = 0;
         createShortestPath(adjMat);
-        // printMat(adjMat);
+        printMat(adjMat);
         int minNode = 0;
         int minCount = INT_MAX;
         for(int row = 0 ; row < n ; row++){
