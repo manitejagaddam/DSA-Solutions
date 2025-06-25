@@ -20,12 +20,10 @@ private:
             if(grid[i][col] == 'Q' || grid[row][i] == 'Q') return false;
         }
 
-         // Top-left diagonal
         for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
             if (grid[i][j] == 'Q') return false;
         }
 
-        // Top-right diagonal
         for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++) {
             if (grid[i][j] == 'Q') return false;
         }
