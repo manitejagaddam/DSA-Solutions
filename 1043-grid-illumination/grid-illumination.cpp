@@ -107,6 +107,23 @@ public:
 
 
     vector<int> gridIllumination(int n, vector<vector<int>>& lamps, vector<vector<int>>& queries) {
+
+        /*
+            see we are using map ds because to avoid the grid searching 
+            actually here we are updating all the rows and columns and diagonals in grid 
+            but here we are just storing the row, col, dignola numbers 
+            as we can see in the above the fill part of the code it is actually entire row is constant, 
+            entire col is constant like
+            for(int i = 0 ; i < n ; i++) grid[row][i] = 1;
+            for(int i = 0 ; i < n ; i++) grid[i][col] = 1;
+            instead of this we are just storing the value in row as i and in col as c
+
+            while erasing also we are eraing all the rows 
+            so to avoid this we can just remove the particular row number or column number form their particular ds
+        */
+
+
+
         unordered_map<int, int> row, col, dig, anti_dig;
         unordered_set<pair<int, int>, pairHash> lights;
         for(auto it : lamps){
@@ -119,6 +136,7 @@ public:
             dig[r - c]++;
             anti_dig[r + c]++;
         }
+        
 
         vector<int> ans;
         for(auto query : queries){
@@ -126,6 +144,21 @@ public:
             int c = query[1];
             if(row[r] > 0 || col[c] > 0 || dig[r - c] > 0 || anti_dig[r + c] > 0) ans.push_back(1);
             else ans.push_back(0);
+
+            // // Used for debugging
+            // cout << "Rows : " << endl;
+            // for(auto i : row)cout << i.first << " -> " << i.second << endl;
+            // cout << endl;
+            // cout << "cols : " << endl;
+            // for(auto i : col)cout << i.first << " -> " << i.second << endl;
+            // cout << endl;
+            // cout << "Dig : " << endl;
+            // for(auto i : dig)cout << i.first << " -> " << i.second << endl;
+            // cout << endl;
+            // cout << "Anti-dig : " << endl;
+            // for(auto i : anti_dig)cout << i.first << " -> " << i.second << endl;
+            // cout << endl;
+
 
             for(int i = -1 ; i <= 1 ; i++){
                 for(int j = -1 ; j <= 1 ; j++){
