@@ -1,6 +1,16 @@
 class Solution {
 
 private:
+
+    struct pairHash{
+        size_t operator()(const pair<int, int> & p) const{
+            return p.first ^ p.second;
+        }
+    };
+
+
+
+
     void fillLights(vector<vector<int>> & grid, int row, int col){
         int n = grid.size();
 
@@ -98,7 +108,7 @@ public:
 
     vector<int> gridIllumination(int n, vector<vector<int>>& lamps, vector<vector<int>>& queries) {
         unordered_map<int, int> row, col, dig, anti_dig;
-        set<pair<int, int>> lights;
+        unordered_set<pair<int, int>, pairHash> lights;
         for(auto it : lamps){
             int r = it[0];
             int c = it[1];
