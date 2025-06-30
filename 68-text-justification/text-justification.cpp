@@ -49,11 +49,6 @@ private:
                 final_str += words[start++];
                 final_str += string(const_spaces + (extra_spaces-- > 0 ? 1 : 0), ' ');
             }
-            // while(start < end - 1){
-            //     final_str += words[start++];
-            //     final_str += string(const_spaces + (extra_spaces > 0 ? 1 : 0), ' ');
-            //     if(extra_spaces > 0) extra_spaces--;
-            // }
             final_str += words[end - 1];
         }
         curr_word_idx = end;
