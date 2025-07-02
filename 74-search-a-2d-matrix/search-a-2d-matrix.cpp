@@ -6,9 +6,9 @@ public:
         int row = 0;
         int col = n - 1;
         while(row < m && col >= 0){
-            cout << matrix[row][col];
-            if(matrix[row][col] == target) return true;
-            else if(matrix[row][n - 1] < target){
+            // cout << matrix[row][col];
+            // if(matrix[row][col] == target) return true;
+            if(matrix[row][n - 1] < target){
                 row++;
             }else{
                 while(col >= 0){
