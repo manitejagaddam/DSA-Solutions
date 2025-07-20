@@ -10,11 +10,7 @@ private:
             }
         }
 
-        // return {n1, n2};
-        pair<int, int> ans;
-        ans.first = n1;
-        ans.second = n2;
-        return ans;
+        return {n1, n2};
     }
 
 public:
