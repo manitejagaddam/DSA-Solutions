@@ -3,12 +3,10 @@ class Solution {
 private:
     pair<int, int> solve(int num){
         int n1 = 1, n2 = num;
-        int prevScore = INT_MAX;
         for(int i = 1 ; i <= sqrt(num) ; i++){
-            if(num % i == 0 && abs(i - (num / i)) < prevScore){
+            if(num % i == 0){
                 n1 = i;
                 n2 = num / i;
-                prevScore = abs(i - num / i);
             }
         }
 
