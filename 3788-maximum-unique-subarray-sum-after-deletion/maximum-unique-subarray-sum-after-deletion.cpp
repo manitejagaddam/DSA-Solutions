@@ -18,20 +18,26 @@ public:
             return maxSumVal;
         }
 
-
         for(int ele : nums){
-            if(ele < 0){
-                // st.clear();
-                // sum = 0;
-                continue;
-            }else if(st.count(ele) > 0) continue;
-            else{
-                sum += ele;
-                st.insert(ele);
-                maxSumVal = maxSumVal < sum ? sum : maxSumVal;
-            }
-            cout << ele << " "  << sum << " " << maxSumVal << endl;
+            if(st.count(ele) > 0 || ele < 0) continue;
+            sum += ele;
+            st.insert(ele);
+            maxSumVal = maxSumVal < sum ? sum : maxSumVal;
         }
+
+        // for(int ele : nums){
+        //     if(ele < 0){
+        //         // st.clear();
+        //         // sum = 0;
+        //         continue;
+        //     }else if(st.count(ele) > 0) continue;
+        //     else{
+        //         sum += ele;
+        //         st.insert(ele);
+        //         maxSumVal = maxSumVal < sum ? sum : maxSumVal;
+        //     }
+        //     cout << ele << " "  << sum << " " << maxSumVal << endl;
+        // }
         return maxSumVal;
     }
 };
