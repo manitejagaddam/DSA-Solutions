@@ -25,7 +25,7 @@ private:
 
 public:
     int goodNodes(TreeNode* root) {
-        if(!root) return 0;
+        // if(!root) return 0;
         int count = 0;
         int maxVal = root -> val;
         inorder_traversal(root, maxVal, count);
