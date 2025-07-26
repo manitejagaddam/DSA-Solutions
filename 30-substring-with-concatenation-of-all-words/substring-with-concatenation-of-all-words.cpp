@@ -97,7 +97,10 @@ public:
     //     return indexes;
     // }
 
-    // NETHOD USING SLIDIGN WINDOW 
+
+
+
+    // METHOD USING SLIDIGN WINDOW 
     vector<int> findSubstring(string s, vector<string>& words){
         
         if(words.size() == 0) return {};
