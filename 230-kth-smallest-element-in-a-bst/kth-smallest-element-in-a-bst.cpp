@@ -12,15 +12,15 @@
 class Solution {
 
 private:
-    void solve(TreeNode * root, int & ans, int &count, int k){
+    void inorderTraversal(TreeNode * root, int & ans, int &count, int k){
         if(!root) return;
-        solve(root -> left, ans, count, k);
+        inorderTraversal(root -> left, ans, count, k);
         count++;
         if(count == k){
             ans = root -> val;
             return;
         }
-        solve(root -> right, ans, count, k);
+        inorderTraversal(root -> right, ans, count, k);
 
     }
 
@@ -28,7 +28,7 @@ public:
     int kthSmallest(TreeNode* root, int k) {
         int ans;
         int count = 0;
-        solve(root, ans, count, k);
+        inorderTraversal(root, ans, count, k);
         return ans;
     }
 };
