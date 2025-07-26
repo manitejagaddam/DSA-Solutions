@@ -12,7 +12,7 @@
 class Solution {
 public:
     int deepestLeavesSum(TreeNode* root) {
-        int sum = root -> val;
+        int sum = 0;
         queue<TreeNode *> q;
         q.push(root);
         while(!q.empty()){
