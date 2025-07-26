@@ -21,25 +21,28 @@ public:
             bool evenLevel;
             if(level % 2 == 0) evenLevel = true;
             else evenLevel = false;
-            cout << evenLevel << endl;
+            // cout << evenLevel << endl;
             int prevVal;
             if(evenLevel) prevVal = INT_MAX;
             else prevVal = INT_MIN;
 
             for(int i = 0 ; i < size ; i++){
                 TreeNode * node = q.front();
-                cout << node -> val << " " ;
+                // cout << node -> val << " " ;
                 q.pop();
-                // if(node -> val % 2 != evenLevel) return false;
-                if(evenLevel && node -> val % 2 == 1) return false;
-                if(!evenLevel && node -> val % 2 == 0) return false;
-                if(evenLevel && node -> val >= prevVal) return false;
-                if(!evenLevel && node -> val <= prevVal) return false;
+                // if(evenLevel && node -> val % 2 == 1) return false;
+                // if(!evenLevel && node -> val % 2 == 0) return false;
+                // if(evenLevel && node -> val >= prevVal) return false;
+                // if(!evenLevel && node -> val <= prevVal) return false;
+
+                if(evenLevel && (node -> val >= prevVal || node -> val % 2 == 1)) return false;
+                if(!evenLevel && (node -> val <= prevVal || node -> val % 2 == 0)) return false;
+
                 prevVal = node -> val;
                 if(node -> left) q.push(node -> left);
                 if(node -> right) q.push(node -> right);
             }
-            cout << endl;
+            // cout << endl;
             level++;
         }
         return true;
