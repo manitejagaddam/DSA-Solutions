@@ -1,123 +1,89 @@
-class Node{
-    public:
-        int val;
-        Node * parent;
-        vector<Node *> childs;
-        int locked_by;
-
-        Node(int _val){
-            val = _val;
-            parent = nullptr;
-            locked_by = -1;
-        }
-        Node(int _val, Node * _parent){
-            val = _val;
-            parent = _parent;
-            locked_by = -1;
-        }
+class Node {
+public:
+    int val;
+    int parent;
+    vector<int> childs;
+    int locked_by = -1;
+    int locked_descendants = 0;
 };
 
-
 class LockingTree {
-
 private:
-    unordered_map<int, Node *> mpp;
-    vector<vector<int>> adj;
+    vector<Node> tree;
 
+    void updateAncestors(int node, int delta) {
+        while (node != -1) {
+            tree[node].locked_descendants += delta;
+            node = tree[node].parent;
+        }
+    }
 
-    bool isDesendentLocked(Node * node){
-        if(!node) return false;
-        if(node && node -> locked_by != -1) return true;
-        for(auto childNodes : node -> childs){
-            if(childNodes && isDesendentLocked(childNodes)) return true;
+    bool isAncestorLocked(int node) {
+        node = tree[node].parent;
+        while (node != -1) {
+            if (tree[node].locked_by != -1) return true;
+            node = tree[node].parent;
         }
         return false;
     }
 
-    // bool isAnsestorsLocked(Node * node){
-    //     if(!node) return false;
-    //     if(node && node -> locked_by != -1) return true;
-    //     if(node && isAnsestorsLocked(node -> parent)) return true;
-    //     return false;
-    // }
-    bool isAnsestorsLocked(Node * node){
-        if(!node) return false;
-        while(node){
-            if(node -> locked_by != -1) return true;
-            node = node -> parent;
-        }
-        return false;
-    }
+    bool unlockAllDescendantsIter(int node) {
+        bool unlocked = false;
+        stack<int> st;
+        st.push(node);
 
-    void unlockDesendents(Node * node){
-        if(!node) return;
-        if(node -> locked_by != -1) node -> locked_by = -1;
-        for(auto childNodes : node -> childs){
-            unlockDesendents(childNodes);
+        while (!st.empty()) {
+            int curr = st.top();
+            st.pop();
+
+            if (tree[curr].locked_by != -1) {
+                updateAncestors(curr, -1);
+                tree[curr].locked_by = -1;
+                unlocked = true;
+            }
+
+            for (int child : tree[curr].childs) {
+                st.push(child);
+            }
         }
+
+        return unlocked;
     }
 
 public:
     LockingTree(vector<int>& parent) {
-        // creating an adjacney list
-        
-        
-        int len = parent.size();
-        adj.resize(len);
-        for(int i = 1 ; i < len ; i++){
-            adj[parent[i]].push_back(i);
-            mpp[i] = new Node(i);
+        int n = parent.size();
+        tree.resize(n);
+        for (int i = 0; i < n; i++) {
+            tree[i].val = i;
+            tree[i].parent = parent[i];
+            if (i > 0)
+                tree[parent[i]].childs.push_back(i);
         }
-
-
-        // creating the Tree Like Structure
-        Node * root = new Node(0);
-        mpp[0] = root;
-        for(auto i = 0 ; i < adj.size() ; i++){
-            // int parent = i;
-            // Node * node = new Node(mpp[parent]);
-
-            Node * parentNode = mpp[i];
-            for(int j = 0 ; j < adj[i].size() ; j++){
-                mpp[adj[i][j]] -> parent = parentNode;
-                // Node * node = new Node(adj[i][j], parentNode);
-                parentNode -> childs.push_back(mpp[adj[i][j]]);
-                // mpp[adj[i][j]] = node;
-            }
-        }
-
     }
-    
+
     bool lock(int num, int user) {
-        Node * node = mpp[num];
-        if(node -> locked_by != -1) return false;
-        node -> locked_by = user;
+        if (tree[num].locked_by != -1) return false;
+        tree[num].locked_by = user;
+        updateAncestors(num, 1);
         return true;
     }
-    
-    bool unlock(int num, int user) {
-        Node * node = mpp[num];
-        if(node -> locked_by == -1 || node -> locked_by != user) return false;
-        node -> locked_by = -1;
-        return true;
-    }
-    
-    bool upgrade(int num, int user) {
-        Node * node = mpp[num];
-        if(node -> locked_by != -1) return false;
-        if(!isDesendentLocked(node)) return false;
-        if(isAnsestorsLocked(node)) return false;
-        unlockDesendents(node);
-        node -> locked_by = user;
-        return true;
 
+    bool unlock(int num, int user) {
+        if (tree[num].locked_by != user) return false;
+        tree[num].locked_by = -1;
+        updateAncestors(num, -1);
+        return true;
+    }
+
+    bool upgrade(int num, int user) {
+        if (tree[num].locked_by != -1 || tree[num].locked_descendants == 0 || isAncestorLocked(num))
+            return false;
+
+        if (!unlockAllDescendantsIter(num)) return false;
+
+        tree[num].locked_by = user;
+        updateAncestors(num, 1);
+        return true;
     }
 };
-
-/**
- * Your LockingTree object will be instantiated and called as such:
- * LockingTree* obj = new LockingTree(parent);
- * bool param_1 = obj->lock(num,user);
- * bool param_2 = obj->unlock(num,user);
- * bool param_3 = obj->upgrade(num,user);
- */
