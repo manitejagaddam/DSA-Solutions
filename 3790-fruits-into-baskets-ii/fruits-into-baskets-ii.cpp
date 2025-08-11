@@ -1,0 +1,59 @@
+static constexpr int N=256;
+int seg[N];// as global variable
+struct segTree{
+    unsigned n;
+    segTree(vector<int>& A) : n(A.size()){
+        build(A, 1, 0, n-1);// seg must be cleared 
+    }
+    ~segTree(){// destructor
+        fill(seg, seg+(2u*bit_ceil(n)), 0); // clear seg for the next use
+    }
+    void build(vector<int>& A, int idx, int l, int r) {
+        if (l==r) 
+            seg[idx]=A[l];
+        else{
+            const int m=(l+r)/2;
+            build(A, 2*idx, l, m);
+            build(A, 2*idx+1, m+1, r);
+            seg[idx]=max(seg[2*idx], seg[2*idx+1]);
+        }
+    }
+    // search & update recursively
+    int search(int idx, int l, int r, int k) {
+        if (seg[idx]<k) return -1;
+        if (l==r) {
+            seg[idx]=-1;// no more use
+            return l;
+        }
+
+        const int m=(l+r)/2;
+        int pos;
+
+        if (seg[2*idx]>=k) pos=search(2*idx, l, m, k);
+        else pos=search(2*idx+1, m+1, r, k);
+
+        seg[idx]=max(seg[2*idx], seg[2*idx+1]);
+        return pos;
+    }
+};
+
+
+class Solution {
+public:
+    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
+        int count = 0;
+        int n = baskets.size();
+        for (auto fruit : fruits) {
+            int unset = 1;
+            for (int i = 0; i < n; i++) {
+                if (fruit <= baskets[i]) {
+                    baskets[i] = 0;
+                    unset = 0;
+                    break;
+                }
+            }
+            count += unset;
+        }
+        return count;
+    }
+};
