@@ -41,19 +41,30 @@ struct segTree{
 class Solution {
 public:
     int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
-        int count = 0;
-        int n = baskets.size();
-        for (auto fruit : fruits) {
-            int unset = 1;
-            for (int i = 0; i < n; i++) {
-                if (fruit <= baskets[i]) {
-                    baskets[i] = 0;
-                    unset = 0;
-                    break;
-                }
-            }
-            count += unset;
-        }
-        return count;
+        // int count = 0;
+        // int n = baskets.size();
+        // for (auto fruit : fruits) {
+        //     int unset = 1;
+        //     for (int i = 0; i < n; i++) {
+        //         if (fruit <= baskets[i]) {
+        //             baskets[i] = 0;
+        //             unset = 0;
+        //             break;
+        //         }
+        //     }
+        //     count += unset;
+        // }
+        // return count;
+
+
+        const int n=fruits.size();
+        int ans=0;
+        segTree tree(baskets);
+
+        for (auto x: fruits)
+            if (tree.search(1, 0, n-1, x)==-1)
+                ans++;
+
+        return ans;
     }
 };
