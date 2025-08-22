@@ -41,6 +41,25 @@ private:
         return dp[m - 1][n - 1];
     }
 
+    int combinations(int m, int n){
+        // Allowed moves: only DOWN or RIGHT
+
+        // Total moves = (m - 1) downs + (n - 1) rights
+        int steps = (m - 1) + (n - 1);   // total steps needed (m - 1) + (n - 1)
+        int r = min(m - 1, n - 1); // choose the smaller one for efficiency
+
+        // We need to compute C(steps, r) = steps! / (r! * (steps-r)!)
+        // Instead of factorials, we use the multiplicative formula
+        long long ans = 1; // use long long to avoid overflow in intermediate steps
+
+        for (int i = 1; i <= r; i++) {
+            // Multiply by (steps - r + i) and divide by i at each step
+            ans = ans * (steps - r + i) / i;
+        }
+
+        return (int)ans; // final result always fits into int for given constraints
+    }
+
 
 public:
     int uniquePaths(int m, int n) {
@@ -49,6 +68,8 @@ public:
         // vector<vector<int>> dp(m, vector<int>(n, -1));
         // return memoization(0, 0, m, n, dp);
 
-        return tabulation(m, n);
+        // return tabulation(m, n);
+
+        return combinations(m, n);
     }
 };
