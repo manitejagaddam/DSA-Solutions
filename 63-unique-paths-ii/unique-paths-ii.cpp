@@ -1,52 +1,34 @@
 class Solution {
 
 private:
-    int recurssion(vector<vector<int>> grid, int row, int col){
-        int m = grid.size();
-        int n = grid[0].size();
-
-        if(row == m - 1 && col == n - 1 && grid[row][col] != 1) return 1;
-        if(row >= m || col >= n) return 0;
-
+    int backtrack(vector<vector<int>> & grid, int row, int col, int m, int n){
+        if(row == m - 1 && col == n - 1) return 1;
+        if(row == m || col == n) return 0;
         if(grid[row][col] == 1) return 0;
-        
-        int down = recurssion(grid, row + 1, col);
-        int right = recurssion(grid, row, col + 1);
 
-        return down + right;     
+        int ans = backtrack(grid, row + 1, col, m, n) + backtrack(grid, row, col + 1, m, n);
 
-
+        return ans;
     }
 
-    int memoization(vector<vector<int>> & grid, int row, int col, vector<vector<int>> & dp){
-        int m = grid.size();
-        int n = grid[0].size();
-
-        if(row == m - 1 && col == n - 1 && grid[row][col] != 1) return 1;
-
-        if(row >= m || col >= n) return 0;
-
+    int memoization(vector<vector<int>> & grid, int row, int col, int m, int n, vector<vector<int>> & dp){
+        if(row == m - 1 && col == n - 1) return 1;
+        if(row == m || col == n) return 0;
         if(grid[row][col] == 1) return 0;
 
         if(dp[row][col] != -1) return dp[row][col];
 
-        int down  = memoization(grid, row + 1, col, dp);
-        int right = memoization(grid, row, col + 1, dp);
-
-        return dp[row][col] = down + right;
-
+        return dp[row][col] = memoization(grid, row + 1, col, m, n, dp) + memoization(grid, row, col + 1, m, n, dp);
     }
 
 public:
     int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int m = obstacleGrid.size();
+        int n = obstacleGrid[0].size();
+        if(obstacleGrid[m - 1][n - 1] == 1) return 0;
+        // return backtrack(obstacleGrid, 0, 0, m, n);
 
-        // // Brute Force Mthod Recurssion
-        // return recurssion(obstacleGrid, 0, 0);
-
-        // Memoization Method
-        vector<vector<int>> dp(obstacleGrid.size() + 1, vector<int>(obstacleGrid[0].size() , -1));
-        return memoization(obstacleGrid, 0, 0, dp);
-
-
+        vector<vector<int>> dp(m, vector<int>(n, -1));
+        return memoization(obstacleGrid, 0, 0, m, n, dp);
     }
 };
