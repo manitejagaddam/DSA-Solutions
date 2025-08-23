@@ -18,6 +18,8 @@ private:
 
 public:
     int minDistance(string word1, string word2) {
-        return word1.length() + word2.length() - 2 * LCS(word1, word2);
+        // return word1.length() + word2.length() - 2 * LCS(word1, word2);
+        int lcs = LCS(word1, word2);
+        return word1.length() - lcs + word2.length() - lcs;
     }
 };
