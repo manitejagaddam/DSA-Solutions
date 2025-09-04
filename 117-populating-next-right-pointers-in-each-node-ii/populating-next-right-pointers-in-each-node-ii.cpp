@@ -24,22 +24,23 @@ public:
         q.push(root);
         while(!q.empty()){
             int size = q.size();
-            vector<Node *> temp;
+            // vector<Node *> temp;
             for(int i = 0 ; i < size ; i++){
                 Node * node = q.front();
                 q.pop();
-                temp.push_back(node);
+                // temp.push_back(node);
+                if(i < size - 1) node -> next = q.front();
                 if(node -> left) q.push(node -> left);
                 if(node -> right) q.push(node -> right);
             }
 
-            for(int i = 0 ; i < size ; i++) cout << temp[i] -> val << " ";
-            cout << endl;
+            // for(int i = 0 ; i < size ; i++) cout << temp[i] -> val << " ";
+            // cout << endl;
 
-            for(int i = 0 ; i < size ; i++){
-                if(i == size - 1) temp[i] -> next = nullptr;
-                else temp[i] -> next = temp[i + 1];
-            }
+            // for(int i = 0 ; i < size ; i++){
+            //     if(i == size - 1) temp[i] -> next = nullptr;
+            //     else temp[i] -> next = temp[i + 1];
+            // }
         }
 
         return root;
