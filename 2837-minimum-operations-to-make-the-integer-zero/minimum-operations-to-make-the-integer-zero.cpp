@@ -19,6 +19,15 @@ private:
         return static_cast<int>(roundedValue);
     }
 
+    int setCount(long long n){
+        int count = 0;
+        while(n){
+            if(n & 1LL) count++;
+            n >>= 1LL;
+        }
+        return count;
+    }
+
 public:
     // int makeTheIntegerZero(int num1, int num2) {
     //     unordered_set<int> st;
@@ -55,12 +64,14 @@ public:
 
     //     return -1;
     // }
+
     int makeTheIntegerZero(int num1, int num2) {
         int k = 1;
         while(true){
             long long x = num1 - static_cast<long long>(num2) * k;
             if(x < k) return -1;
-            if(k >= __builtin_popcountll(x)) return k;
+            if(k >= setCount(x)) return k;
+            // if(k >= __builtin_popcountll(x)) return k;
             k++;
         }
         return -1;
