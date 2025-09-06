@@ -26,13 +26,13 @@ private:
     }
 
     int tabulation(string & s, string & t){
-        vector<vector<long long>> dp(s.size() + 1, vector<long long>(t.size() + 1, 0));
+        vector<vector<int>> dp(s.size() + 1, vector<int>(t.size() + 1, 0));
 
         for(int idx = 0 ; idx <= s.size(); idx++) dp[idx][0] = 1;
 
         for(int idx1 = 1 ; idx1 <= s.size() ; idx1++){
             for(int idx2 = 1 ; idx2 <= t.size() ; idx2++){
-                if(s[idx1 - 1] == t[idx2 - 1]) dp[idx1][idx2] = dp[idx1 - 1][idx2 - 1] + dp[idx1 - 1][idx2] % MOD;
+                if(s[idx1 - 1] == t[idx2 - 1]) dp[idx1][idx2] = dp[idx1 - 1][idx2 - 1] % MOD + dp[idx1 - 1][idx2] % MOD;
                 else dp[idx1][idx2]= dp[idx1 - 1][idx2];
             }
         }
