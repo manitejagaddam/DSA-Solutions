@@ -12,46 +12,38 @@
 class Solution {
 
 private:
-    
-    struct PairHash {
-        size_t operator()(const pair<TreeNode*, bool>& p) const {
-            return hash<TreeNode*>()(p.first) ^ hash<bool>()(p.second);
+    int dfs(TreeNode * root, bool canRob){
+        if(!root) return 0;
+        int pick = 0, notPick = 0;
+        if(canRob){
+            pick += root -> val;
+            pick += dfs(root -> left, false);
+            pick += dfs(root -> right, false);
+        }else{
+            notPick += dfs(root -> left, true);
+            notPick += dfs(root -> right, true);
         }
-    };
-
-    int backtrack(TreeNode * node, bool need_to_rob){
-        if(!node) return 0;
-
-        int rob = 0;
-        int not_rob = 0;
-
-        if(need_to_rob) rob = node -> val + backtrack(node -> left, false) + backtrack(node -> right, false);
-        not_rob = backtrack(node -> left, true) + backtrack(node -> right, true);
-
-        return max(rob, not_rob);
-
+        return max(pick, notPick);
     }
 
-    int memoization(TreeNode * node, bool need_to_rob, unordered_map<pair<TreeNode *, bool>, int, PairHash> & mpp){
-        if(!node) return 0;
-        if(mpp.find({node, need_to_rob}) != mpp.end()) return mpp[{node, need_to_rob}];
+    pair<int, int> dfs(TreeNode * node){
+        if(!node) return {0, 0};
 
-        int rob = 0;
-        int not_rob = 0;
-        if(need_to_rob) rob = node -> val + memoization(node -> left, false, mpp) + memoization(node -> right, false, mpp);
-        not_rob = memoization(node -> left, true, mpp) + memoization(node -> right, true, mpp);
+        auto left = dfs(node -> left);
+        auto right = dfs(node -> right);
 
-        return mpp[{node, need_to_rob}] = max(rob, not_rob);
+        int rob = node -> val + left.first + right.first;
+
+        int notRob = max(left.first, left.second) + max(right.first, right.second);
+
+        return {notRob, rob};
     }
 
 public:
     int rob(TreeNode* root) {
+        // return max(dfs(root, true), dfs(root, false));
+        auto ans = dfs(root);
 
-        // // Backtracking
-        // return max(backtrack(root, true), backtrack(root, false));
-        
-        // Memoization
-        unordered_map<pair<TreeNode *, bool>, int, PairHash> mpp;
-        return max(memoization(root, true, mpp), memoization(root, false, mpp));
+        return max(ans.first, ans.second);
     }
 };
