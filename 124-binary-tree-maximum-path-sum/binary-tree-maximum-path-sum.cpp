@@ -12,19 +12,29 @@
 class Solution {
 
 private:
-    int solve(TreeNode * root, int & ans){
-        if(!root) return 0;
-        int l = max(0, solve(root -> left, ans));
-        int r = max(0, solve(root -> right, ans));
 
-        ans = max(ans, l + r + root -> val);
-        return root -> val + max(l, r);
+    bool isLeaf(TreeNode * node){
+        return !node -> left && !node -> right;
+    }
+
+    int ans = INT_MIN;
+    int inorder_traversal(TreeNode * root){
+        if(!root) return 0;
+        
+        int left = 0, right = 0;
+
+        left = max(0, inorder_traversal(root -> left));
+        right = max(0, inorder_traversal(root -> right));
+
+        ans = max(ans, left + right + root -> val);
+        return root -> val + max(left, right);
     }
 
 public:
     int maxPathSum(TreeNode* root) {
-        int ans = INT_MIN;
-        solve(root, ans);
+        // if(isLeaf(root)) return root -> val;
+        int val = inorder_traversal(root);
+        cout << val;
         return ans;
     }
 };
