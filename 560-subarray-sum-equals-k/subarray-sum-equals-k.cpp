@@ -12,9 +12,9 @@ public:
             count += mpp[req];
             mpp[sum]++;
         }
-        for(auto it : mpp){
-            cout << it.first << " " << it.second << endl;
-        }
+        // for(auto it : mpp){
+        //     cout << it.first << " " << it.second << endl;
+        // }
         return count;
     }
 };
