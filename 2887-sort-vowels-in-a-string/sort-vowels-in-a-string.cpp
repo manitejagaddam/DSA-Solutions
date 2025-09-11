@@ -9,19 +9,37 @@ private:
 
 public:
     string sortVowels(string s) {
-        vector<char> vowels;
+        // vector<char> vowels;
+        // for(char ch : s) {
+        //     if(isVowel(ch)) vowels.push_back(ch);
+        // }
+        // sort(vowels.begin(), vowels.end());
+
+        // string t = "";
+        // int vowel_idx = 0;
+        // for(char ch : s){
+        //     if(isVowel(ch)) t += vowels[vowel_idx++];
+        //     else t += ch;
+        // }
+
+        // return t;
+
+        map<char, int> mpp;
         for(char ch : s) {
-            if(isVowel(ch)) vowels.push_back(ch);
+            if(isVowel(ch)) mpp[ch]++;
         }
-        sort(vowels.begin(), vowels.end());
-
         string t = "";
-        int vowel_idx = 0;
+        auto it = mpp.begin();
         for(char ch : s){
-            if(isVowel(ch)) t += vowels[vowel_idx++];
-            else t += ch;
+            if(isVowel(ch)){
+                t += it -> first;
+                if(--it -> second == 0) it++;
+            }else{
+                t += ch;
+            }
         }
-
         return t;
+
+
     }
 };
