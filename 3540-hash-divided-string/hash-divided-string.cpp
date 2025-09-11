@@ -9,7 +9,7 @@ private:
         }
         // cout << endl;
         // cout << (sum % 26) << " ";
-        return (sum % 26) + 'a';
+        return static_cast<char>((sum % 26) + 'a');
     }
 
 public:
