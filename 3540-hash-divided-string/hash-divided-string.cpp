@@ -5,10 +5,10 @@ private:
         int sum = 0;
         for(int idx = start ; idx < start + len ; idx++){
             sum += (s[idx] - 'a');
-            cout << s[idx] << " ";
+            // cout << s[idx] << " ";
         }
-        cout << endl;
-        cout << (sum % 26) << " ";
+        // cout << endl;
+        // cout << (sum % 26) << " ";
         return (sum % 26) + 'a';
     }
 
