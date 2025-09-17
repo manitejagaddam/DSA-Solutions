@@ -11,12 +11,8 @@ public:
         int len = foods.size();
 
         for (int idx = 0; idx < len; idx++) {
-            string food = foods[idx];
-            string cuisine = cuisines[idx];
-            int rating = ratings[idx];
-
-            mpp[cuisine][rating].insert(food);
-            food_mpp[food] = {rating, cuisine};
+            mpp[cuisines[idx]][ratings[idx]].insert(foods[idx]);
+            food_mpp[foods[idx]] = {ratings[idx], cuisines[idx]};
         }
     }
 
