@@ -1,38 +1,22 @@
 class Solution {
 
 private:
-    int backtrack(vector<int> & coins, int idx, int tempSum, int count, int target){
-        if(tempSum == target) return count;
-        if(tempSum > target) return INT_MAX;
-        if(idx < 0) return INT_MAX;
-        return min(backtrack(coins, idx, tempSum + coins[idx], count + 1, target), backtrack(coins, idx - 1, tempSum, count, target));
-    }
+    int memoization(vector<int> & coins, int idx, int amount, vector<vector<int>> & dp){
+        if(amount == 0) return 0;
+        if(amount < 0 || idx < 0) return INT_MAX;
+        if(dp[idx][amount] != -1) return dp[idx][amount];
 
-    int memoization(vector<int>& coins, int idx, int tempSum, int target, vector<vector<int>>& dp) {
-        if (tempSum == target) return 0;            
-        if (tempSum > target) return INT_MAX;       
-        if (idx < 0) return INT_MAX;                
-
-        if (dp[idx][tempSum] != -1) return dp[idx][tempSum];
-
-        int take = memoization(coins, idx, tempSum + coins[idx], target, dp);
-        if (take != INT_MAX) take += 1; 
-
-        int skip = memoization(coins, idx - 1, tempSum, target, dp);
-
-        return dp[idx][tempSum] = min(take, skip);
+        // return dp[idx][amount] = min(memoization(coins, idx, amount - coins[idx], dp), memoization(coins, idx - 1, amount, dp)) + 1;
+        int take = memoization(coins, idx, amount - coins[idx], dp);
+        int notTake = memoization(coins, idx - 1, amount, dp);
+        if(take != INT_MAX) take++;
+        return dp[idx][amount] = min(take, notTake);
     }
 
 public:
     int coinChange(vector<int>& coins, int amount) {
-        if(amount == 0) return 0;
-        sort(coins.begin(), coins.end());
-        int len = coins.size();
-        // int ans = backtrack(coins, coins.size() - 1, 0, 0, amount);
-
-        vector<vector<int>> dp(len, vector<int>(amount + 1, -1));
-        int ans = memoization(coins, coins.size() - 1, 0, amount, dp);
-
+        vector<vector<int>> dp(coins.size(), vector<int>(amount + 1, -1));
+        int ans = memoization(coins, coins.size() - 1, amount, dp);
         return ans != INT_MAX ? ans : -1;
     }
 };
