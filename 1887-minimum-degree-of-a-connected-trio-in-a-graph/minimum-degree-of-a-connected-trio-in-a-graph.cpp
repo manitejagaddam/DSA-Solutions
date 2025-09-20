@@ -69,8 +69,8 @@ public:
         //     if(!vis[node]) dfs(node);
         // }
         int res = INT_MAX;
-        for(int node1 = 1 ; node1 <= n ; node1++){
-            for(int node2 = node1 + 1 ; node2 <= n ; node2++){
+        for(int node1 = 1 ; node1 <= n - 2 ; node1++){
+            for(int node2 = node1 + 1 ; node2 <= n - 1 ; node2++){
                 if(!adj[node1][node2]) continue;
                 for(int node3 = node2 + 1 ; node3 <= n ; node3++){
                     if(adj[node1][node3] && adj[node2][node3]){
