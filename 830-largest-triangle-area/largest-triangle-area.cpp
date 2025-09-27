@@ -12,8 +12,8 @@ public:
         for(int p1 = 0 ; p1 < len - 2 ; p1++){
             for(int p2 = p1 + 1 ; p2 < len - 1 ; p2++){
                 for(int p3 = p2 + 1 ; p3 < len ; p3++){
-                    if(points[p1][0] == points[p2][0] && points[p1][0] == points[p3][0]) continue;
-                    if(points[p1][1] == points[p2][1] && points[p1][1] == points[p3][1]) continue;
+                    // if(points[p1][0] == points[p2][0] && points[p1][0] == points[p3][0]) continue;
+                    // if(points[p1][1] == points[p2][1] && points[p1][1] == points[p3][1]) continue;
                     ans = max(ans, area(points[p1], points[p2], points[p3]));
                 }
             }
