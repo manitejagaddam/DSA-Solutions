@@ -2,13 +2,28 @@ class Solution {
 
 private:
     int len, kVal;
-    vector<long long> dp;
+    vector<int> dp;
 
-    long long memoization(vector<int> & nums, int idx){
+    int memoization(vector<int> & nums, int idx){
         if(idx >= len) return 0;
-        if(dp[idx] != LLONG_MIN) return dp[idx];
+        if(dp[idx] != -1000) return dp[idx];
 
         return dp[idx] = nums[idx] + memoization(nums, idx + kVal);
+    }
+
+    int tabulation(vector<int> & nums){
+        int ans = -1000;
+
+        for(int idx = len - 1 ; idx >= 0 ; idx--){
+            dp[idx] = nums[idx];
+            if(idx + kVal < len){
+                dp[idx] += dp[idx + kVal];
+            }
+            ans = max(ans, dp[idx]);
+        }
+
+        return ans;
+
     }
 
 public:
@@ -29,12 +44,14 @@ public:
 
         len = energy.size();
         kVal = k;
-        dp.resize(len, LLONG_MIN);
-        long long ans = INT_MIN;
+        dp.resize(len, -1000);
+        // int ans = INT_MIN;
 
-        for(int idx = 0 ; idx < len ; idx++){
-            ans = max(ans, memoization(energy, idx));
-        }
-        return (int)ans;
+        // for(int idx = 0 ; idx < len ; idx++){
+        //     ans = max(ans, memoization(energy, idx));
+        // }
+        // return (int)ans;
+
+        return tabulation(energy);
     }
 };
