@@ -1,31 +1,40 @@
 class Solution {
 public:
-    bool valid(string str1, string str2, int k) {
-        int len1 = str1.size(), len2 = str2.size();
-        if (len1 % k > 0 || len2 % k > 0) {
-            return false;
-        } else {
-            string base = str1.substr(0, k);
-            int n1 = len1 / k, n2 = len2 / k;
-            return str1 == joinWords(base, n1) && str2 == joinWords(base, n2);
-        }
-    }
-    string joinWords(string str, int k) {
-        string ans = "";
-        for (int i = 0; i < k; ++i) {
-            ans += str;
-        }
-        return ans;
-    }
-    
-    
-    string gcdOfStrings(string str1, string str2) {
-        int len1 = str1.length(), len2 = str2.length();
-        for (int i = min(len1, len2); i >= 1; --i) {
-            if (valid(str1, str2, i)) {
-                return str1.substr(0, i);
+    string extractPattern(const string& str1, const string& str2) const
+    {
+        string pattern = "";
+        for (int i = 0; i < str1.length() && i < str2.length(); ++i) {
+            if (str1[i] == str2[i]) {
+                const auto divisor = i+1;
+                if (str1.length() % divisor == 0 && str2.length()% divisor == 0) {
+                    pattern = str1.substr(0, divisor);
+                }
             }
         }
-        return "";
+        return pattern;
+    }
+
+    bool validateWithString(const string& str, const string& pattern) const
+    {
+        if (str.length() != pattern.length()) {
+            auto begin = pattern.length();
+
+            while (begin < str.length()) {
+                auto substr = str.substr(begin, pattern.length());
+                if (substr != pattern) {
+                    return false;
+                }
+                begin += pattern.length();
+            }
+        }
+        return true;
+    }
+
+    string gcdOfStrings(string str1, string str2) {
+        const auto pattern = extractPattern(str1, str2);
+
+        return !pattern.empty() && validateWithString(str1, pattern) && validateWithString(str2, pattern)?
+        pattern:
+        string();
     }
 };
