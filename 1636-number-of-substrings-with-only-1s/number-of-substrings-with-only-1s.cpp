@@ -1,6 +1,7 @@
-const int MOD = 1e9 + 7;
 
 class Solution {
+private:
+    const int MOD = 1e9 + 7;
 public:
     int numSub(string s) {
         int ans = 0;
@@ -47,9 +48,6 @@ public:
         // 5 -> 2
         // 6 -> 1
 
-        //  6 * 7 / 2 -> 3 * 7 = 21
-
-
-        
+        //  6 * 7 / 2 -> 3 * 7 = 21        
     }
 };
