@@ -3,7 +3,7 @@ public:
     vector<int> findDiagonalOrder(vector<vector<int>>& mat) {
         int m = mat.size(), n = mat[0].size();
         vector<int> ans;
-        ans.reserve(m * n);
+        // ans.reserve(m * n);
 
         for (int d = 0; d < m + n - 1; d++) {
             vector<int> temp;
