@@ -1,31 +1,40 @@
 class Solution {
 public:
     string simplifyPath(string path) {
-        vector<string> components;
-        stringstream ss(path);
-        string comp;
-        while (getline(ss, comp, '/')) {
-            if (comp == "" || comp == ".") {
-                continue;
-            }
+        vector<string> stack;
+        string curr;
 
-            if (comp == "..") {
-                if (!st.empty()) {
-                    st.pop_back();
+        for (int i = 0; i < path.size(); i++) {
+            if (path[i] == '/') {
+                if (!curr.empty()) {
+                    if (curr == "..") {
+                        if (!stack.empty()) stack.pop_back();
+                    } else if (curr != ".") {
+                        stack.push_back(curr);
+                    }
+                    curr.clear();
                 }
-            } else {
-                st.push_back(comp);
+            } 
+            else {
+                curr += path[i];
             }
         }
 
-        stringstream simplifiedPath;
-        for (const string& s : st) {
-            simplifiedPath << "/" << s;
+        // handle last segment
+        if (!curr.empty()) {
+            if (curr == "..") {
+                if (!stack.empty()) stack.pop_back();
+            } else if (curr != ".") {
+                stack.push_back(curr);
+            }
         }
 
-        return simplifiedPath.str().empty() ? "/" : simplifiedPath.str();        
-    }
+        // build result
+        if (stack.empty()) return "/";
 
-private:
-    vector<string> st;    
+        string result = "";
+        for (string &dir : stack) result += "/" + dir;
+
+        return result;
+    }
 };
