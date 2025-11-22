@@ -1,19 +1,19 @@
 class Solution {
 public:
     int minSubArrayLen(int target, vector<int>& nums) {
-        int noe = nums.size();
+        int len = nums.size();
+        int mini = len +1;
         int start = 0;
         int end = 0;
         int sum = 0;
-        int minLen = nums.size() + 1;
-        while(end < noe){
-           sum += nums[end++];
-           while(sum >= target){
-            minLen = minLen > end - start ? end - start : minLen;
-            sum-= nums[start++];
-           }
-            // cout << start << " " << end << " -> " << sum << endl;
+        while(end < len){
+            sum += nums[end];
+            while(sum >= target){
+                mini = min(mini, end - start + 1);
+                sum -= nums[start++];
+            } 
+            end++;
         }
-        return minLen < nums.size() + 1 ? minLen : 0;
+        return mini != len + 1 ? mini : 0;
     }
 };
