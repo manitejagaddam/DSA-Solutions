@@ -12,6 +12,15 @@ public:
                 string temp = s2.substr(idx, k_len);
                 sort(temp.begin(), temp.end());
                 if(temp == s1) return true;
+            //     bool notfound = false;
+            //     for(int i = 0 ; i < k_len ; i++){
+            //         if(st1.count(temp[i]) == 0){
+            //             notfound = true;
+            //             idx = i;
+            //             break;
+            //         }
+            //     }
+            //     if(!notfound) return true;
             }
             idx++;
         }
