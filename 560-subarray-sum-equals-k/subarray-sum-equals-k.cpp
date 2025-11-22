@@ -8,9 +8,13 @@ public:
         for(int ele : nums){
             sum += ele;
             int req = sum - k;
+            // cout << "req : " << req << "    mpp[req] : " << mpp[req] << "   sum : " << sum << "   mpp[sum] : " << mpp[sum] << endl;
             count += mpp[req];
             mpp[sum]++;
         }
+        // for(auto it : mpp){
+        //     cout << it.first << " " << it.second << endl;
+        // }
         return count;
     }
 };
