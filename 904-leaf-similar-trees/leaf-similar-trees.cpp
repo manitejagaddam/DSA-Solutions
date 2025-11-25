@@ -35,17 +35,18 @@ public:
         inorder_traversal(root1, true);
         inorder_traversal(root2, false);
 
-        if(tree1.size() != tree2.size()) return false;
+        // if(tree1.size() != tree2.size()) return false;
 
-        for(auto it : tree1) cout << it << " ";
-        cout << endl;
-        for(auto it : tree2) cout << it << " ";
+        // for(auto it : tree1) cout << it << " ";
+        // cout << endl;
+        // for(auto it : tree2) cout << it << " ";
         
-        int len = tree1.size();
+        // int len = tree1.size();
 
-        for(int idx = 0 ; idx < len ; idx++){
-            if(tree1[idx] != tree2[idx]) return false;
-        }        
-        return true;
+        // for(int idx = 0 ; idx < len ; idx++){
+        //     if(tree1[idx] != tree2[idx]) return false;
+        // }        
+        // return true;
+        return tree1 == tree2;
     }
 };
