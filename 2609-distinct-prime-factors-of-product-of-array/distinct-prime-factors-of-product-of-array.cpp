@@ -27,14 +27,12 @@ public:
     int distinctPrimeFactors(vector<int>& nums) {
         vector<int> primes = getPrimes(1000);
         for(int ele : primes) cout << ele << " ";
-        unordered_set<int> st(primes.begin(), primes.end());
         unordered_set<int> vis;
         for(int ele : nums){
             for(int it : primes){
                 if(it > ele) break;
                 if(ele % it == 0) {
                     vis.insert(it);
-                    // st.erase(it);
                 }
             }
         }
