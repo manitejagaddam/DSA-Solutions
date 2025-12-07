@@ -30,5 +30,5 @@ public:
             }
         }
         return ans;
-    }//we can top3 val pair for each row and bruteforce all the com for placing all three rooks 
+    } 
 };
