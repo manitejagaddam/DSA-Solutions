@@ -6,10 +6,9 @@ public:
         long long ans = 0;
         int len = happiness.size();
         for(int idx = 0 ; idx < len && k ; idx++, k--, toDecrement++){
-            // cout << happiness[idx] - toDecrement << " ";
             if(happiness[idx] - toDecrement > 0){
                 ans += happiness[idx] - toDecrement;
-            }
+            }else break;
         }
         return ans;
     }
