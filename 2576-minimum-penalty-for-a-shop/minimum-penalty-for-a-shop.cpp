@@ -31,8 +31,8 @@ public:
         int open = 0;
         int close = 0;
         for(char ch : customers) open += ch == 'Y' ? 1 : 0;
-        if(open == 0) return 0;
-        if(open == customers.size()) return open;
+        // if(open == 0) return 0;
+        // if(open == customers.size()) return open;
         int count = INT_MAX;
         int ans = 0;
         int len = customers.size();
