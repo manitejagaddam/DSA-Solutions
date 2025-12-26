@@ -1,6 +1,29 @@
 class Solution {
 public:
     int bestClosingTime(string customers) {
+
+        int open = 0;
+        int close = 0;
+        int ans = 0;
+        int len = customers.size();
+        for(char ch : customers) open += ch == 'Y' ? 1 : 0;
+        int count = open + 1;
+        for(int idx = 0 ; idx < len ; idx++){
+            // cout << open << " " << close << endl;
+            int temp = open + close;
+            if(temp < count){
+                count = temp;
+                ans = idx;
+            }
+            if(customers[idx] == 'Y') open--;
+            else close++;
+        }
+        if(open + close < count) {
+            ans = len;
+        }
+        return ans;
+
+
         // int len = customers.size();
         // vector<int> open(len + 1, 0), close(len + 1, 0);
         // for(int idx = len - 1 ; idx >= 0 ; idx--){
@@ -28,27 +51,5 @@ public:
         // return ans;
 
 
-        int open = 0;
-        int close = 0;
-        for(char ch : customers) open += ch == 'Y' ? 1 : 0;
-        // if(open == 0) return 0;
-        // if(open == customers.size()) return open;
-        int count = INT_MAX;
-        int ans = 0;
-        int len = customers.size();
-        for(int idx = 0 ; idx < len ; idx++){
-            cout << open << " " << close << endl;
-            int temp = open + close;
-            if(temp < count){
-                count = temp;
-                ans = idx;
-            }
-            if(customers[idx] == 'Y') open--;
-            else close++;
-        }
-        if(open + close < count) {
-            ans = len;
-        }
-        return ans;
     }
 };
