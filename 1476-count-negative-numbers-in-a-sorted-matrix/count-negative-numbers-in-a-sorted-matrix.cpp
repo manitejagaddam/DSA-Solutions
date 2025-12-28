@@ -1,42 +1,27 @@
 class Solution {
 
 private:
-    int countNeg(vector<int> & nums){
-        int len = nums.size();
-        // for(int i : nums) cout << i << " ";
-        cout << endl;
-        for(int i = 0 ; i < len ; i++){
-            if(nums[i] < 0) return len - i;
-        }
-        return 0;
-    }
-
-    int bsCountNeg(vector<int> & nums){
+    int findBp(vector<vector<int>> & grid, int row){
+        int len = grid[row].size();
         int start = 0;
-        int end = nums.size() - 1;
-        int ans = -1;
+        int end = len - 1;
         while(start <= end){
             int mid = (start + end) / 2;
-            // cout << nums[mid] << " ";
-            if(nums[mid] >= 0) start = mid + 1;
-            else {
-                ans = mid;
+            if(grid[row][mid] < 0) {
+                end = mid;
                 end = mid - 1;
-            }
+            }else start = mid + 1;
         }
-        // cout << "  " << ans << " ";
-        // cout << endl;
-
-        return ans != -1 ? nums.size() - ans : 0;
+        return start;
     }
 
 public:
     int countNegatives(vector<vector<int>>& grid) {
         int count = 0;
-        int len = grid.size();
-        for(int i = 0 ; i < len ; i++){
-            // count += countNeg(grid[i]);
-            count += bsCountNeg(grid[i]);
+        int m = grid.size();
+        int n = grid[0].size();
+        for(int row = 0 ; row < m ; row++){
+            count += n - findBp(grid, row);
         }
         return count;
     }
