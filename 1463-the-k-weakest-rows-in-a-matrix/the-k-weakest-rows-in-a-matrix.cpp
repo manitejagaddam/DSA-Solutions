@@ -2,25 +2,29 @@ class Solution {
 
 private:
     int findCount(vector<vector<int>> & mat, int row){
-        // int start = 0 ; 
-        // int end = mat[0].size();
-        // while(start <= end){
-        //     int mid = (start + end) / 2;
-        //     // cout << mat[row][mid] << " ";
-        //     if(mat[row][mid] == 1){
-        //         start = mid + 1;
-        //     }else{
-        //         end = mid - 1;
-        //     }
-        // }
-        // return start;
-        int idx = 0;
-        for(int ele : mat[row]){
-            if(ele == 0) return idx;
-            idx++;
+        int start = 0 ; 
+        int end = mat[0].size() - 1;
+        while(start <= end){
+            int mid = (start + end) / 2;
+            // cout << mat[row][mid] << " ";
+            if(mat[row][mid] == 1){
+                start = mid + 1;
+            }else{
+                end = mid - 1;
+            }
         }
+        return start;
+
+
+
+
+        // int idx = 0;
+        // for(int ele : mat[row]){
+        //     if(ele == 0) return idx;
+        //     idx++;
+        // }
         // cout << idx;
-        return idx;
+        // return idx;
     }
 
 public:
