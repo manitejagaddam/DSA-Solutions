@@ -9,8 +9,9 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
-class Solution {
 
+
+class Solution {
 private:
     long long ans = INT_MIN;
     const int MOD = 1e9 + 7;
