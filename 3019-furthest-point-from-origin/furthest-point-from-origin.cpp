@@ -7,6 +7,7 @@ public:
             else if(ch == 'R') r_count++;
         }
         int rem_count = moves.size() - l_count - r_count;
-        return rem_count + max(r_count, l_count) - min(r_count, l_count);
+        // return rem_count + max(r_count, l_count) - min(r_count, l_count);
+        return rem_count + abs(r_count - l_count);
     }
 };
