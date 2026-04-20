@@ -24,9 +24,12 @@ private:
 
 public:
     bool isStrictlyPalindromic(int n) {
-        for(int base = 2 ; base <= n - 2 ; base++){
-            if(!isPalindrome(BaseConverter(n, base))) return false;
-        }
-        return true;
+        // for(int base = 2 ; base <= n - 2 ; base++){
+        //     if(!isPalindrome(BaseConverter(n, base))) return false;
+        // }
+        // return true;
+
+
+        return false;
     }
 };
