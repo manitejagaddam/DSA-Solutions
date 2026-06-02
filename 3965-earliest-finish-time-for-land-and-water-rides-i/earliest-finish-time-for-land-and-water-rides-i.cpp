@@ -69,10 +69,8 @@ public:
 
         // return min(case1, case2);
 
-        int land_water =
-            solve(landStartTime, landDuration, waterStartTime, waterDuration);
-        int water_land =
-            solve(waterStartTime, waterDuration, landStartTime, landDuration);
+        int land_water = solve(landStartTime, landDuration, waterStartTime, waterDuration);
+        int water_land = solve(waterStartTime, waterDuration, landStartTime, landDuration);
         return min(land_water, water_land);
 
     }
