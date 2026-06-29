@@ -15,13 +15,11 @@ public:
             if(inDegree[i] == 0) 
                 q.push(i);
         
-        int coursesCompleted = 0;
         vector<int> ans;
         
         while(!q.empty()){
             int course = q.front();
             q.pop();
-            coursesCompleted++;
             ans.push_back(course);
 
 
@@ -30,7 +28,7 @@ public:
                     q.push(i);
         }
         reverse(ans.begin(), ans.end());
-        return numCourses == coursesCompleted ? ans : vector<int>{};
+        return numCourses == ans.size() ? ans : vector<int>{};
         // return ans;
     }
 };
