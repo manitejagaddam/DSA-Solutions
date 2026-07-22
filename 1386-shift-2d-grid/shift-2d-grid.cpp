@@ -36,6 +36,8 @@ public:
         // for(int idx = 0 ; idx < k ; idx++) reverse(grid);
         // return grid;
 
+
+        // Converting from 2d matrix to 1d matrix
         int m = grid.size();
         int n = grid[0].size();
 
